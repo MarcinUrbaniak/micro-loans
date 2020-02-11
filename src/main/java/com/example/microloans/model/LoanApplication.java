@@ -1,5 +1,7 @@
 package com.example.microloans.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.net.InetAddress;
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ public class LoanApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private InetAddress ipAddress;
+    private String ipAddress;
     private LocalDate applicationDay;
     private LocalTime applicationTime;
     @ManyToOne
@@ -28,11 +30,11 @@ public class LoanApplication {
         this.id = id;
     }
 
-    public InetAddress getIpAddress() {
+    public String getIpAddress() {
         return ipAddress;
     }
 
-    public void setIpAddress(InetAddress ipAddress) {
+    public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 

@@ -1,9 +1,7 @@
 package com.example.microloans.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class UserAccount {
@@ -14,6 +12,9 @@ public class UserAccount {
     private String firstName;
     private String lastName;
     private String email;
+
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private Set<Loan> loans;
 
 
 

@@ -14,8 +14,6 @@ public class Loan {
     private Long id;
     private BigDecimal amount;
     private Long loanPeriod;
-    @Enumerated(EnumType.STRING)
-    private LoanStatus loanStatus;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isDeferral;
@@ -27,11 +25,10 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(Long id, BigDecimal ammount, Long loanPeriod, LoanStatus status, LocalDate startDate){
+    public Loan(Long id, BigDecimal ammount, Long loanPeriod, LocalDate startDate){
         this.id = id;
         this.amount = ammount;
         this.loanPeriod = loanPeriod;
-        this.loanStatus = status;
         this.startDate = startDate;
     }
 
@@ -57,14 +54,6 @@ public class Loan {
 
     public void setLoanPeriod(Long loanPeriod) {
         this.loanPeriod = loanPeriod;
-    }
-
-    public LoanStatus getLoanStatus() {
-        return loanStatus;
-    }
-
-    public void setLoanStatus(LoanStatus loanStatus) {
-        this.loanStatus = loanStatus;
     }
 
     public boolean isDeferral() {
@@ -98,12 +87,4 @@ public class Loan {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
-    //    public LoanApplication getLoanApplication() {
-//        return loanApplication;
-//    }
-//
-//    public void setLoanApplication(LoanApplication loanApplication) {
-//        this.loanApplication = loanApplication;
-//    }
 }

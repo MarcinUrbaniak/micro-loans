@@ -41,10 +41,6 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
 
         LoanApplication loanApplication = addLoanApplicationToDataSource(request, ipAddress, date, time);
 
-        /**
-         * Warunki polityki ryzyka
-         */
-        System.out.println(ipReturningAddress(ipAddress));
         if((isIncorrectAmount(loanApplication.getLoan().getAmount())
             && isIncorrectApplicationTime(loanApplication.getApplicationTime()))
         || isThirdApplicationFromIp(ipReturningAddress(ipAddress))) {
@@ -54,14 +50,11 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
         return ResponseEntity.ok(new LoanApplicationResponse(msgSource.OK002, loanApplication.getId()));
     }
 
-
-
-
     private LoanApplication addLoanApplicationToDataSource(LoanApplicationRequest request, String ipAddress, LocalDate date, LocalTime time){
 
         UserAccount userAccount = checkUserIdInRepository(request);
 
-        Loan loan = new Loan(null, request.getAmount(), request.getLoanPeriod(), LoanStatus.NEW,LocalDate.now() );
+        Loan loan = new Loan(null, request.getAmount(), request.getLoanPeriod(),LocalDate.now() );
         loan.setDeferral(false);
         loan.setEndDate(loan.getStartDate().plusDays(loan.getLoanPeriod()));
         loan.setUserAccount(userAccount);
@@ -75,13 +68,11 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
 
         return loanApplicationRepository.save(loanApplication);
     }
-
     private UserAccount checkUserIdInRepository(LoanApplicationRequest request) {
         Optional<UserAccount> userAccountOptional = userAccountRepository.findById(request.getUserId());
         if(!userAccountOptional.isPresent()) throw new CommonRiskException(msgSource.ERR001);
         return userAccountOptional.get();
     }
-
     private int ipReturningAddress(String ipAddress){
       List<LoanApplication> loanApplications = loanApplicationRepository.findAllByIpAddressEquals(ipAddress);
       return loanApplications.size();
@@ -89,5 +80,5 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
 }
 
 
-//TODO: obsłużyć zmiany statusu pożyczki w bazie danych
+//TODO: usunąć statusy z klasy loan
 //loanApplication.getLoan().setLoanStatus(LoanStatus.REJECTED);

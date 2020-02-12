@@ -18,7 +18,7 @@ public class LoanApplication {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserAccount userAccount;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "loan_id", referencedColumnName = "id")
     private Loan loan;
 

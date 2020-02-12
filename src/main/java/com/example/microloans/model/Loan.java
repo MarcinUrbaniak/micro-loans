@@ -22,10 +22,17 @@ public class Loan {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private UserAccount userAccount;
-//    @OneToOne
-//    private LoanApplication loanApplication;
+
 
     public Loan() {
+    }
+
+    public Loan(Long id, BigDecimal ammount, Long loanPeriod, LoanStatus status, LocalDate startDate){
+        this.id = id;
+        this.amount = ammount;
+        this.loanPeriod = loanPeriod;
+        this.loanStatus = status;
+        this.startDate = startDate;
     }
 
     public Long getId() {

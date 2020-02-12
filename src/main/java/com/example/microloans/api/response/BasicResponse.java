@@ -13,6 +13,7 @@ public class BasicResponse {
 
     public BasicResponse() {
     }
+
     public BasicResponse(String responseMsg) {
         this.responseMsg = responseMsg;
         this.status = ResponseStatus.ACCEPTED;
@@ -60,7 +61,7 @@ public class BasicResponse {
         return new BasicResponse(responseMsg);
     }
 
-    public static BasicResponse ofError(String errorCode, String errorMsg){
+    public static BasicResponse ofError(String errorCode, String errorMsg) {
         return new BasicResponse(errorCode, errorMsg);
     }
 }

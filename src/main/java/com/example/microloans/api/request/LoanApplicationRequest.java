@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class LoanApplicationRequest {
 
 
-
     private Long userId;
     private BigDecimal amount;
     private Long loanPeriod;

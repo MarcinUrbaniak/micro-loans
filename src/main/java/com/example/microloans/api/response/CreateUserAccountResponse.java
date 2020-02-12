@@ -1,6 +1,6 @@
 package com.example.microloans.api.response;
 
-public class CreateUserAccountResponse  extends BasicResponse{
+public class CreateUserAccountResponse extends BasicResponse {
 
     private Long userId;
 

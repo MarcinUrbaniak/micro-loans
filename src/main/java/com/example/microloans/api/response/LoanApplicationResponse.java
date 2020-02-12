@@ -1,9 +1,8 @@
 package com.example.microloans.api.response;
 
-public class LoanApplicationResponse extends BasicResponse{
+public class LoanApplicationResponse extends BasicResponse {
 
     private Long loanApplicationId;
-
 
 
     public LoanApplicationResponse(String responseMsg, Long loanApplicationId) {

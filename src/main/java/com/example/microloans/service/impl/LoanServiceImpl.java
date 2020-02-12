@@ -24,10 +24,12 @@ public class LoanServiceImpl extends AbstractCommonService implements LoanServic
         super(msgSource);
         this.loanRepository = loanRepository;
     }
+
     @Override
     public ResponseEntity<ExtensionOfLoanResponse> extensionOfLoan(ExtensionOfLoanRequest request) {
         Loan loan = findLoanById(request.getLoanId());
-        if (loan.isDeferral() || !isCorrectExtension(request.getExtension())) throw new CommonRiskException(msgSource.ERR001);
+        if (loan.isDeferral() || !isCorrectExtension(request.getExtension()))
+            throw new CommonRiskException(msgSource.ERR001);
 
         loan.setDeferral(true);
         loan.setEndDate(loan.getEndDate().plusDays(request.getExtension()));
@@ -35,9 +37,10 @@ public class LoanServiceImpl extends AbstractCommonService implements LoanServic
 
         return ResponseEntity.ok(new ExtensionOfLoanResponse(msgSource.OK003, loan.getId()));
     }
-    private Loan findLoanById(Long id){
-       Optional<Loan> loanOptional = loanRepository.findById(id);
-       if(!loanOptional.isPresent()) throw new CommonRiskException(msgSource.ERR001);
-       return loanOptional.get();
+
+    private Loan findLoanById(Long id) {
+        Optional<Loan> loanOptional = loanRepository.findById(id);
+        if (!loanOptional.isPresent()) throw new CommonRiskException(msgSource.ERR001);
+        return loanOptional.get();
     }
 }

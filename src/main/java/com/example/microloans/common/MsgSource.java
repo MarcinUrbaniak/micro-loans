@@ -22,6 +22,6 @@ public class MsgSource {
         OK002 = ok002MsgValue;
         OK003 = ok003MsgValue;
 
-        ERR001 = new ConstErrorMsg("REJ001", err001MsgValue );
+        ERR001 = new ConstErrorMsg("REJ001", err001MsgValue);
     }
 }

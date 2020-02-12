@@ -20,7 +20,7 @@ public class LoanController {
     }
 
     @PostMapping(value = "/extension", produces = "application/json")
-    public ResponseEntity<ExtensionOfLoanResponse> extensionOfLoan(@RequestBody ExtensionOfLoanRequest request){
+    public ResponseEntity<ExtensionOfLoanResponse> extensionOfLoan(@RequestBody ExtensionOfLoanRequest request) {
         return loanService.extensionOfLoan(request);
     }
 

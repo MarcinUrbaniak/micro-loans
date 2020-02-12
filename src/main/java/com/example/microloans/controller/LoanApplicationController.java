@@ -24,7 +24,7 @@ public class LoanApplicationController {
     }
 
     @PostMapping(value = "/apply", produces = "application/json")
-    public ResponseEntity<LoanApplicationResponse> loanApplication(@RequestBody LoanApplicationRequest request){
+    public ResponseEntity<LoanApplicationResponse> loanApplication(@RequestBody LoanApplicationRequest request) {
         String ipAddress = WebUtils.getClientIp();
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();

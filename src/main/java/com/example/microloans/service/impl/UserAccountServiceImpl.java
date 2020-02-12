@@ -31,7 +31,7 @@ public class UserAccountServiceImpl extends AbstractCommonService implements Use
         return ResponseEntity.ok(new CreateUserAccountResponse(msgSource.OK001, addedAccount.getId()));
     }
 
-    private UserAccount addUserAccountToDataSource(CreateUserAccountRequest request){
+    private UserAccount addUserAccountToDataSource(CreateUserAccountRequest request) {
         UserAccount userAccount = new UserAccount(
                 null,
                 request.getFirstName(),

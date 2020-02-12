@@ -4,8 +4,7 @@ public class ExtensionOfLoanResponse extends BasicResponse {
 
     private Long loanId;
 
-    public ExtensionOfLoanResponse(){
-
+    public ExtensionOfLoanResponse() {
     }
 
     public ExtensionOfLoanResponse(String responseMsg, Long loanId) {

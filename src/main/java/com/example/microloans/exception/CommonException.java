@@ -3,7 +3,7 @@ package com.example.microloans.exception;
 
 import com.example.microloans.common.ConstErrorMsg;
 
-public class CommonException extends RuntimeException{
+public class CommonException extends RuntimeException {
 
     private ConstErrorMsg constErrorMsg;
 

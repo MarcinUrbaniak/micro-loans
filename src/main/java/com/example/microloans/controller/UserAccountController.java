@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
 @RequestMapping("user-account")
 public class UserAccountController {
@@ -22,7 +21,7 @@ public class UserAccountController {
     }
 
     @PostMapping(value = "/create", produces = "application/json")
-    public ResponseEntity<CreateUserAccountResponse> createUserAccount(@RequestBody CreateUserAccountRequest request){
+    public ResponseEntity<CreateUserAccountResponse> createUserAccount(@RequestBody CreateUserAccountRequest request) {
         return userAccountService.createUserAccount(request);
     }
 }

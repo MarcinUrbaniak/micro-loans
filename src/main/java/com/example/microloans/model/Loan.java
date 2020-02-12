@@ -25,7 +25,7 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(Long id, BigDecimal ammount, Long loanPeriod, LocalDate startDate){
+    public Loan(Long id, BigDecimal ammount, Long loanPeriod, LocalDate startDate) {
         this.id = id;
         this.amount = ammount;
         this.loanPeriod = loanPeriod;

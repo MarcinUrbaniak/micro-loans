@@ -7,21 +7,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class BasicResponse {
 
     private String responseMsg;
-    private String errorCode;
-    private String errorMsg;
+    private String rejectCode;
+    private String riskMsg;
     private ResponseStatus status;
 
     public BasicResponse() {
     }
     public BasicResponse(String responseMsg) {
         this.responseMsg = responseMsg;
-        this.status = ResponseStatus.SUCCESS;
+        this.status = ResponseStatus.ACCEPTED;
     }
 
-    public BasicResponse(String errorCode, String errorMsg) {
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
-        this.status = ResponseStatus.ERROR;
+    public BasicResponse(String rejectCode, String riskMsg) {
+        this.rejectCode = rejectCode;
+        this.riskMsg = riskMsg;
+        this.status = ResponseStatus.REJECTED;
     }
 
     public String getResponseMsg() {
@@ -32,20 +32,20 @@ public class BasicResponse {
         this.responseMsg = responseMsg;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getRejectCode() {
+        return rejectCode;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setRejectCode(String rejectCode) {
+        this.rejectCode = rejectCode;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getRiskMsg() {
+        return riskMsg;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public void setRiskMsg(String riskMsg) {
+        this.riskMsg = riskMsg;
     }
 
     public ResponseStatus getStatus() {

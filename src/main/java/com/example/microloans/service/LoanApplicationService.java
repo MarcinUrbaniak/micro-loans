@@ -1,8 +1,6 @@
 package com.example.microloans.service;
 
-import com.example.microloans.api.request.CreateUserAccountRequest;
 import com.example.microloans.api.request.LoanApplicationRequest;
-import com.example.microloans.api.response.CreateUserAccountResponse;
 import com.example.microloans.api.response.LoanApplicationResponse;
 import org.springframework.http.ResponseEntity;
 

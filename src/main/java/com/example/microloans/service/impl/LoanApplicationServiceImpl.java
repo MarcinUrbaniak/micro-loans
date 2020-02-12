@@ -3,7 +3,7 @@ package com.example.microloans.service.impl;
 import com.example.microloans.api.request.LoanApplicationRequest;
 import com.example.microloans.api.response.LoanApplicationResponse;
 import com.example.microloans.common.MsgSource;
-import com.example.microloans.exception.CommonException;
+import com.example.microloans.exception.CommonRiskException;
 import com.example.microloans.model.Loan;
 import com.example.microloans.model.LoanApplication;
 import com.example.microloans.model.UserAccount;
@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
+
+import static com.example.microloans.risk.RiskEngine.*;
 
 @Service
 public class LoanApplicationServiceImpl extends AbstractCommonService implements LoanApplicationService {
@@ -26,9 +29,7 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
     private LoanApplicationRepository loanApplicationRepository;
     private UserAccountRepository userAccountRepository;
 
-
-    public LoanApplicationServiceImpl(MsgSource msgSource, LoanApplicationRepository loanApplicationRepository,
-                                      UserAccountRepository userAccountRepository) {
+    public LoanApplicationServiceImpl(MsgSource msgSource, LoanApplicationRepository loanApplicationRepository, UserAccountRepository userAccountRepository) {
         super(msgSource);
         this.loanApplicationRepository = loanApplicationRepository;
         this.userAccountRepository = userAccountRepository;
@@ -36,22 +37,31 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
 
     @Override
     @Transactional
-    public ResponseEntity<LoanApplicationResponse> loanApplication(LoanApplicationRequest request, String ipAddress
-            ,LocalDate date, LocalTime time) {
+    public ResponseEntity<LoanApplicationResponse> loanApplication(LoanApplicationRequest request, String ipAddress,LocalDate date, LocalTime time) {
+
         LoanApplication loanApplication = addLoanApplicationToDataSource(request, ipAddress, date, time);
+
+        /**
+         * Warunki polityki ryzyka
+         */
+        System.out.println(ipReturningAddress(ipAddress));
+        if((isIncorrectAmount(loanApplication.getLoan().getAmount())
+            && isIncorrectApplicationTime(loanApplication.getApplicationTime()))
+        || isThirdApplicationFromIp(ipReturningAddress(ipAddress))) {
+            throw new CommonRiskException(msgSource.ERR001);
+        }
 
         return ResponseEntity.ok(new LoanApplicationResponse(msgSource.OK002, loanApplication.getId()));
     }
 
 
-    private LoanApplication addLoanApplicationToDataSource(LoanApplicationRequest request,
-                                                           String ipAddress,
-                                                           LocalDate date,
-                                                           LocalTime time){
+
+
+    private LoanApplication addLoanApplicationToDataSource(LoanApplicationRequest request, String ipAddress, LocalDate date, LocalTime time){
 
         UserAccount userAccount = checkUserIdInRepository(request);
 
-        Loan loan = new Loan(null, request.getAmmount(), request.getLoanPeriod(), LoanStatus.NEW,LocalDate.now() );
+        Loan loan = new Loan(null, request.getAmount(), request.getLoanPeriod(), LoanStatus.NEW,LocalDate.now() );
         loan.setDeferral(false);
         loan.setEndDate(loan.getStartDate().plusDays(loan.getLoanPeriod()));
         loan.setUserAccount(userAccount);
@@ -68,7 +78,16 @@ public class LoanApplicationServiceImpl extends AbstractCommonService implements
 
     private UserAccount checkUserIdInRepository(LoanApplicationRequest request) {
         Optional<UserAccount> userAccountOptional = userAccountRepository.findById(request.getUserId());
-        if(!userAccountOptional.isPresent()) throw new CommonException(msgSource.ERR001);
+        if(!userAccountOptional.isPresent()) throw new CommonRiskException(msgSource.ERR001);
         return userAccountOptional.get();
     }
+
+    private int ipReturningAddress(String ipAddress){
+      List<LoanApplication> loanApplications = loanApplicationRepository.findAllByIpAddressEquals(ipAddress);
+      return loanApplications.size();
+    }
 }
+
+
+//TODO: obsłużyć zmiany statusu pożyczki w bazie danych
+//loanApplication.getLoan().setLoanStatus(LoanStatus.REJECTED);

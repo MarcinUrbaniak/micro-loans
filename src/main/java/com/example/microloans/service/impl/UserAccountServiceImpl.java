@@ -3,6 +3,7 @@ package com.example.microloans.service.impl;
 import com.example.microloans.api.request.CreateUserAccountRequest;
 import com.example.microloans.api.response.CreateUserAccountResponse;
 import com.example.microloans.common.MsgSource;
+import com.example.microloans.exception.CommonRiskException;
 import com.example.microloans.model.UserAccount;
 import com.example.microloans.repository.UserAccountRepository;
 import com.example.microloans.service.AbstractCommonService;

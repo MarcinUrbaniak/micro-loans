@@ -1,17 +1,13 @@
 package com.example.microloans.api.request;
 
-import com.example.microloans.common.WebUtils;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class LoanApplicationRequest {
 
 
 
     private Long userId;
-    private BigDecimal ammount;
+    private BigDecimal amount;
     private Long loanPeriod;
 
 
@@ -23,12 +19,12 @@ public class LoanApplicationRequest {
         this.userId = userId;
     }
 
-    public BigDecimal getAmmount() {
-        return ammount;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setAmmount(BigDecimal ammount) {
-        this.ammount = ammount;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public Long getLoanPeriod() {

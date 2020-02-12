@@ -28,9 +28,6 @@ public class LoanApplicationController {
         String ipAddress = WebUtils.getClientIp();
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
-        System.out.println("ipAddress = " + ipAddress);
-        System.out.println("currentDate = " + currentDate);
-        System.out.println("currentTime = " + currentTime);
 
         return loanApplicationService.loanApplication(request, ipAddress, currentDate, currentTime);
     }

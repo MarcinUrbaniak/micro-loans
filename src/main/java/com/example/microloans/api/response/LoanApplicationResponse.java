@@ -4,6 +4,8 @@ public class LoanApplicationResponse extends BasicResponse {
 
     private Long loanApplicationId;
 
+    public LoanApplicationResponse() {
+    }
 
     public LoanApplicationResponse(String responseMsg, Long loanApplicationId) {
         super(responseMsg);

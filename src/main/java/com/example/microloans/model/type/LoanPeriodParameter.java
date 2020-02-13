@@ -1,7 +1,7 @@
 package com.example.microloans.model.type;
 
 public enum LoanPeriodParameter {
-    MIN_PERIOD(365L), MAX_PERIOD(0L);
+    MIN_PERIOD(0L), MAX_PERIOD(365L);
 
     private final Long period;
 

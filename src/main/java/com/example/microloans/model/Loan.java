@@ -1,8 +1,5 @@
 package com.example.microloans.model;
 
-import com.example.microloans.model.type.LoanStatus;
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;

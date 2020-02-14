@@ -158,7 +158,7 @@ public class LoanApplicationControllerTest {
                         "}"));
 
     }
-    //@Test - under construction
+    //@Test - under construction.
     public void ifAmountIsMaxAndLoanApplicationIsBetween0And6Hour_shouldRejestLoanApplication() throws Exception{
         loanApplicationRepository.deleteAll();
 //        Clock clock = Clock.fixed(Instant.parse("2020-02-12T05:00:00.00Z"), ZoneId.of("UTC"));

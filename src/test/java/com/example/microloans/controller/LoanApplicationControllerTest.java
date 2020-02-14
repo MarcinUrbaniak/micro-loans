@@ -9,6 +9,7 @@ import com.example.microloans.repository.LoanApplicationRepository;
 import com.example.microloans.repository.LoanRepository;
 import com.example.microloans.repository.UserAccountRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.jni.Local;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,9 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -159,10 +158,20 @@ public class LoanApplicationControllerTest {
                         "}"));
 
     }
-    @Test
+    //@Test - under construction
     public void ifAmountIsMaxAndLoanApplicationIsBetween0And6Hour_shouldRejestLoanApplication() throws Exception{
         loanApplicationRepository.deleteAll();
-        Clock clock = Clock.fixed(Instant.parse("2020-02-12T07:00:00.00Z"), ZoneId.of("UTC"));
+//        Clock clock = Clock.fixed(Instant.parse("2020-02-12T05:00:00.00Z"), ZoneId.of("UTC"));
+//        LocalTime.now(clock);
+//        System.out.println(LocalTime.now(clock));
+//
+//        Instant.now(Clock.fixed(
+//                Instant.parse("2020-02-12T05:00:00Z"),
+//                ZoneOffset.UTC));
+//
+//        System.out.println("aktualny czas");
+//        System.out.println(LocalTime.now());
+
         // create UserAccount
         MvcResult mvcResultUserAccount = mockMvc
                 .perform(

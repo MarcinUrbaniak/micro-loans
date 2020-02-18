@@ -9,15 +9,16 @@ import com.example.microloans.repository.LoanApplicationRepository;
 import com.example.microloans.repository.LoanRepository;
 import com.example.microloans.repository.UserAccountRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.jni.Local;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -32,6 +33,8 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+@EnableConfigurationProperties
 public class LoanApplicationControllerTest {
 
     @Autowired
@@ -43,10 +46,10 @@ public class LoanApplicationControllerTest {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    Long userAccountId;
+    private Long userAccountId;
 
     @Test
-    public void isCorrect_LoanApplication_ShouldReturnHttpCode200AndAddApplication() throws Exception{
+    public void isCorrect_LoanApplication_ShouldReturnHttpCode200AndAddApplication() throws Exception {
         loanApplicationRepository.deleteAll();
         // create UserAccount
         MvcResult mvcResultUserAccount = mockMvc
@@ -92,8 +95,9 @@ public class LoanApplicationControllerTest {
         System.out.println("ip = " + ip);
 
     }
+
     @Test
-    public void ifThirdLoanApplicationFromIp_ShouldRejectLoanApplication() throws Exception{
+    public void ifThirdLoanApplicationFromIp_ShouldRejectLoanApplication() throws Exception {
         loanApplicationRepository.deleteAll();
 
         // create UserAccount
@@ -158,19 +162,10 @@ public class LoanApplicationControllerTest {
                         "}"));
 
     }
-    //@Test - under construction
-    public void ifAmountIsMaxAndLoanApplicationIsBetween0And6Hour_shouldRejestLoanApplication() throws Exception{
+
+    @Test
+    public void ifAmountIsMaxAndLoanApplicationIsBetween0And6Hour_shouldRejectLoanApplication() throws Exception {
         loanApplicationRepository.deleteAll();
-//        Clock clock = Clock.fixed(Instant.parse("2020-02-12T05:00:00.00Z"), ZoneId.of("UTC"));
-//        LocalTime.now(clock);
-//        System.out.println(LocalTime.now(clock));
-//
-//        Instant.now(Clock.fixed(
-//                Instant.parse("2020-02-12T05:00:00Z"),
-//                ZoneOffset.UTC));
-//
-//        System.out.println("aktualny czas");
-//        System.out.println(LocalTime.now());
 
         // create UserAccount
         MvcResult mvcResultUserAccount = mockMvc
@@ -198,21 +193,17 @@ public class LoanApplicationControllerTest {
                         post("/loan-application/apply")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\n" +
-                                        "  \"amount\": "+ LoanValueParameter.MAX_VALUE.getValue() + ",\n" +
+                                        "  \"amount\": " + LoanValueParameter.MAX_VALUE.getValue() + ",\n" +
                                         "  \"loanPeriod\": 14,\n" +
                                         "  \"userId\": " + userAccountId + "\n" +
-                                        "}")
-                )
+                                        "}"))
                 .andExpect(status().is(400))
                 .andExpect(content().json("{\n" +
                         "  \"rejectCode\": \"REJ001\",\n" +
                         "  \"riskMsg\": \"Wniosek rozpatrzony negatywnie.\",\n" +
                         "  \"status\": \"REJECTED\"\n" +
                         "}"));
-
     }
-
-
 
 
 }

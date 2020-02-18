@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,19 +18,27 @@ import java.time.LocalTime;
 @RequestMapping("loan-application")
 public class LoanApplicationController {
 
+
+    private final Clock clock;
+
     private LoanApplicationService loanApplicationService;
 
-    public LoanApplicationController(LoanApplicationService loanApplicationService) {
+    public LoanApplicationController(Clock clock, LoanApplicationService loanApplicationService) {
+        this.clock = clock;
         this.loanApplicationService = loanApplicationService;
     }
 
     @PostMapping(value = "/apply", produces = "application/json")
     public ResponseEntity<LoanApplicationResponse> loanApplication(@RequestBody LoanApplicationRequest request) {
+
         String ipAddress = WebUtils.getClientIp();
-        LocalDate currentDate = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
+        LocalDate currentDate = LocalDate.now(clock);
+        LocalTime currentTime = LocalTime.now(clock);
 
         return loanApplicationService.loanApplication(request, ipAddress, currentDate, currentTime);
     }
 
+    public Clock getClock() {
+        return clock;
+    }
 }

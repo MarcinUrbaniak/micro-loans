@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/MarcinUrbaniak/micro-loans.svg?branch=master)](https://travis-ci.org/MarcinUrbaniak/micro-loans)
+
 # micro-loans 
 simple microloan application
 

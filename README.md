@@ -1,4 +1,4 @@
-# micro-loans https://travis-ci.org/MarcinUrbaniak/micro-loans.svg?branch=master
+# micro-loans 
 simple microloan application
 
 API aplikacji dostępne pod adresem https://micro-loans.herokuapp.com/swagger-ui.html#/
